@@ -1,7 +1,7 @@
 print("Please think of a number between 1 and 100: ")
 low = 0
 high = 100
-ans = (high + low)//2
+ans = (high + low) // 2
 guess = False
 
 while not guess:
@@ -10,11 +10,11 @@ while not guess:
     feedback = input(' ')
     if feedback == 'l':
         low = ans
-        ans = (high + low)//2
+        ans = (high + low) // 2
 
     elif feedback == 'h':
         high = ans
-        ans = (high + low)//2
+        ans = (high + low) // 2
 
     elif feedback == 'c':
         print('Game over. Your secret number was: ', ans)
