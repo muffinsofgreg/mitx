@@ -14,7 +14,7 @@ WORDLIST_FILENAME = "words.txt"
 def loadWords():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
-    
+
     Depending on the size of the word list, this function may
     take a while to finish.
     """
@@ -42,6 +42,9 @@ def chooseWord(wordlist):
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
 wordlist = loadWords()
+guessesLeft = 8
+lettersGuessed = []
+guessedWordSoFar = ['-' * len(secretWord)]
 
 def isWordGuessed(secretWord, lettersGuessed):
     '''
@@ -50,8 +53,10 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    # FILL IN YOUR CODE HERE...
-
+    wordGuessed = False
+    if getGuessedWord == secretWord:
+        wordGuessed = True
+    return wordGuessed
 
 
 def getGuessedWord(secretWord, lettersGuessed):
@@ -61,8 +66,6 @@ def getGuessedWord(secretWord, lettersGuessed):
     returns: string, comprised of letters and underscores that represents
       what letters in secretWord have been guessed so far.
     '''
-    # FILL IN YOUR CODE HERE...
-
 
 
 def getAvailableLetters(lettersGuessed):
@@ -71,8 +74,14 @@ def getAvailableLetters(lettersGuessed):
     returns: string, comprised of letters that represents what letters have not
       yet been guessed.
     '''
-    # FILL IN YOUR CODE HERE...
-    
+   alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+   for letter in lettersGuessed:
+       if letter in alphabet:
+           alphabet.remove(letter)
+       else:
+            pass
+    return alphabet
 
 def hangman(secretWord):
     '''
@@ -80,26 +89,47 @@ def hangman(secretWord):
 
     Starts up an interactive game of Hangman.
 
-    * At the start of the game, let the user know how many 
+    * At the start of the game, let the user know how many
       letters the secretWord contains.
 
     * Ask the user to supply one guess (i.e. letter) per round.
 
-    * The user should receive feedback immediately after each guess 
+    * The user should receive feedback immediately after each guess
       about whether their guess appears in the computers word.
 
-    * After each round, you should also display to the user the 
-      partially guessed word so far, as well as letters that the 
+    * After each round, you should also display to the user the
+      partially guessed word so far, as well as letters that the
       user has not yet guessed.
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE...
+    print('Welcome to the game, Hangman!')
+    print('I am thinking of a word that is ', len(secretWord), 'letters long.')
+    print('--------------')
 
+    while guessesLeft > 0 and isWordGuessed == False:
+        print('-------------')
+        print(f'You have {} guesses left.', guessesLeft)
+        print(f'Available Letters: {}', getAvailableLetters)
 
+        guess = input('Please guess a letter: ')
 
+        if guess not in getAvailableLetters:
+            print(f"Oops! You've already guessed that Letter: {}", getGuessedWord)
 
+        elif guess not in secretWord:
+            guessesLeft -= 1
+            print(f'Oops! That letter is not in my word: {}', getGuessedWord)
 
+        else:
+            print(f'Good guess: {}', getGuessedWord)
+
+    if isWordGuessed == True:
+        print('----------')
+        print('Congratulations, you won!')
+
+    else:
+        print(f'Sorry, you ran out of guesses. The word was {}.', secretWord)
 
 # When you've completed your hangman function, uncomment these two lines
 # and run this file to test! (hint: you might want to pick your own
