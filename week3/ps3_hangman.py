@@ -11,6 +11,7 @@ import random
 
 WORDLIST_FILENAME = "words.txt"
 
+
 def loadWords():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
@@ -28,6 +29,7 @@ def loadWords():
     print("  ", len(wordlist), "words loaded.")
     return wordlist
 
+
 def chooseWord(wordlist):
     """
     wordlist (list): list of words (strings)
@@ -36,14 +38,14 @@ def chooseWord(wordlist):
     """
     return random.choice(wordlist)
 
+
 # end of helper code
 # -----------------------------------
 
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
 wordlist = loadWords()
-guessesLeft = 8
-lettersGuessed = []
+
 
 def isWordGuessed(secretWord, lettersGuessed):
     '''
@@ -52,9 +54,11 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    wordGuessed = False
-    if getGuessedWord == secretWord:
-        wordGuessed = True
+    wordGuessed = True
+    for letter in secretWord:
+        if letter not in lettersGuessed:
+            wordGuessed = False
+            break
     return wordGuessed
 
 
@@ -66,15 +70,14 @@ def getGuessedWord(secretWord, lettersGuessed):
       what letters in secretWord have been guessed so far.
     '''
 
-    #List word of --- for each letter of secret word
-    hiddenWord = ('-' * len(secretWord))
-
+    hiddenWord = ""
     for letter in secretWord:
         if letter in lettersGuessed:
-            posInSecretWord = secretWord.index(letter)
-            hiddenWord[posInSecretWord] = letter
-
+            hiddenWord += letter + ' '
+        else:
+            hiddenWord += '_ '
     return hiddenWord
+
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -82,14 +85,15 @@ def getAvailableLetters(lettersGuessed):
     returns: string, comprised of letters that represents what letters have not
       yet been guessed.
     '''
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    newAlphabet = ""
 
-   alphabet = "abcdefghijklmnopqrstuvwxyz"
+    for letter in alphabet:
+        if letter not in lettersGuessed:
+            newAlphabet += letter
 
-   for letter in lettersGuessed:
-       if letter in alphabet:
-           alphabet.remove(letter)
+    return newAlphabet
 
-    return alphabet
 
 def hangman(secretWord):
     '''
@@ -111,39 +115,43 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
+    guessesLeft = 8
+    lettersGuessed = []
+
     print('Welcome to the game, Hangman!')
     print('I am thinking of a word that is ', len(secretWord), 'letters long.')
-    print('--------------')
 
-    while guessesLeft > 0 and isWordGuessed(secretWord, lettersGuessed) == False:
+    while guessesLeft > 0 and isWordGuessed(secretWord, lettersGuessed) is False:
+
         print('-------------')
-        print(f'You have {} guesses left.', guessesLeft)
-        print(f'Available Letters: {}', getAvailableLetters(lettersGuessed))
-
-        guess = str(input('Please guess a letter: '))
+        print('You have {} guesses left.'.format(guessesLeft))
+        print('Available Letters: {}'.format(getAvailableLetters(lettersGuessed)))
+        guess = str(input('Please guess a letter: ')).lower()
 
         if guess in lettersGuessed:
-            print(f"Oops! You've already guessed that Letter: {}", getGuessedWord(secretWord, lettersGuessed))
+            print("Oops! You've already guessed that Letter: {}".format(getGuessedWord(secretWord, lettersGuessed)))
 
         elif guess not in secretWord:
             lettersGuessed.append(guess)
             guessesLeft -= 1
-            print(f'Oops! That letter is not in my word: {}', getGuessedWord(secretWord, lettersGuessed))
+            print('Oops! That letter is not in my word: {}'.format(getGuessedWord(secretWord, lettersGuessed)))
 
         else:
-            print(f'Good guess: {}', getGuessedWord(secretWord, lettersGuessed))
             lettersGuessed.append(guess)
+            print('Good guess: {}'.format(getGuessedWord(secretWord, lettersGuessed)))
 
-    if isWordGuessed(secretWord, lettersGuessed) == True:
+    if isWordGuessed(secretWord, lettersGuessed) is True:
         print('----------')
         print('Congratulations, you won!')
 
     else:
-        print(f'Sorry, you ran out of guesses. The word was {}.', secretWord)
+        print('----------')
+        print('Sorry, you ran out of guesses. The word was {}.'.format(secretWord))
 
 # When you've completed your hangman function, uncomment these two lines
 # and run this file to test! (hint: you might want to pick your own
 # secretWord while you're testing)
+
 
 secretWord = chooseWord(wordlist).lower()
 hangman(secretWord)
