@@ -2,4 +2,4 @@ venv
 .pyc
 .DS_Store
 .un
-__pycache
+__pycache__/
