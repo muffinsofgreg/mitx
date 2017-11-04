@@ -7,6 +7,17 @@ import time
 # Computer chooses a word
 #
 #
+
+
+def wordDictValues(wordList, n):
+    wordDict = {}
+    print("Word dictionary loading, please wait...")
+    for word in wordList:
+        wordDict[word] = getWordScore(word, n)
+    print("Word dictionary complete. Proceed.")
+    return wordDict
+
+
 def compChooseWord(hand, wordList, n):
     """
     Given a hand and a wordList, find the word that gives
@@ -28,11 +39,11 @@ def compChooseWord(hand, wordList, n):
     # Create a new variable to store the best word seen so far (initially None)
     bestWord = None
     # For each word in the wordList
-    for word in wordList:
+    for word in wordDict:
         # If you can construct the word from your hand
-        if isValidWord(word, hand, wordList):
+        if isValidWord(word, hand, wordDict):
             # find out how much making that word is worth
-            score = getWordScore(word, n)
+            score = wordDict[word]
             # If the score for that word is higher than your best score
             if (score > bestScore):
                 # update your best score, and best word accordingly
@@ -40,6 +51,7 @@ def compChooseWord(hand, wordList, n):
                 bestWord = word
     # return the best word you found.
     return bestWord
+
 
 #
 # Computer plays a hand
@@ -66,25 +78,25 @@ def compPlayHand(hand, wordList, n):
     # Keep track of the total score
     totalScore = 0
     # As long as there are still letters left in the hand:
-    while (calculateHandlen(hand) > 0) :
+    while (calculateHandlen(hand) > 0):
         # Display the hand
         print("Current Hand: ", end=' ')
         displayHand(hand)
         # computer's word
         word = compChooseWord(hand, wordList, n)
         # If the input is a single period:
-        if word == None:
+        if word is None:
             # End the game (break out of the loop)
             break
 
         # Otherwise (the input is not a single period):
-        else :
+        else:
             # If the word is not valid:
-            if (not isValidWord(word, hand, wordList)) :
+            if (not isValidWord(word, hand, wordList)):
                 print('This is a terrible error! I need to check my own code!')
                 break
             # Otherwise (the word is valid):
-            else :
+            else:
                 # Tell the user how many points the word earned, and the updated total score
                 score = getWordScore(word, n)
                 totalScore += score
@@ -166,8 +178,9 @@ def playGame(wordList):
 #
 # Build data structures used for entire session and play game
 #
+
+
 if __name__ == '__main__':
     wordList = loadWords()
+    wordDict = wordDictValues(wordList, HAND_SIZE)
     playGame(wordList)
-
-
