@@ -256,13 +256,19 @@ class CiphertextMessage(Message):
         and the decrypted message text using that shift value
         '''
         decrypt_dict = {}
-        for i in range(26):
-            decrypt_dict[26 - i] = [self.apply_shift(26 - i), 0]
+        for i in range(25):
+            decrypt_dict[25 - i] = [self.apply_shift(25 - i), 0]
 
+        numWords = 0
+        newDict = ()
         for shift in decrypt_dict:
             for word in decrypt_dict[shift][0].split(' '):
                 if is_word(self.get_valid_words(), word):
                     decrypt_dict[shift][1] += 1
+                if decrypt_dict[shift][1] > numWords:
+                    numWords = decrypt_dict[shift][1]
+                    newDict = (shift, decrypt_dict[shift][0])
+        return newDict
 
 
 # Example test case (PlaintextMessage)
