@@ -49,11 +49,11 @@ def is_word(word_list, word):
 # DO NOT MODIFY THIS FUNCTION ###
 
 
-def get_story_string():
+def get_story_string(inputFile):
     """
     Returns: a joke in encrypted text.
     """
-    f = open("story.txt", "r")
+    f = open(inputFile, "r")
     story = str(f.read())
     f.close()
     return story
@@ -121,15 +121,14 @@ class Message(object):
                 string.ascii_lowercase[(string.ascii_lowercase.index(letter) -
                                         26 + shift)]
 
-
         for letter in string.ascii_uppercase:
             try:
                 newDict[letter] = \
-                string.ascii_uppercase[(string.ascii_uppercase.index(letter) 
+                string.ascii_uppercase[(string.ascii_uppercase.index(letter)
                                         + shift)]
             except IndexError:
                 newDict[letter] = \
-                string.ascii_uppercase[(string.ascii_uppercase.index(letter) - 
+                string.ascii_uppercase[(string.ascii_uppercase.index(letter) -
                                         26 + shift)]
 
         return newDict
@@ -280,3 +279,8 @@ print('Actual Output:', plaintext.get_message_text_encrypted())
 ciphertext = CiphertextMessage('jgnnq')
 print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
+
+
+story = get_story_string()
+cipher = CiphertextMessage(story)
+print(cipher.decrypt_message())
