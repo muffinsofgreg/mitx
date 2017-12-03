@@ -47,3 +47,31 @@ def greedy(items, maxCost, keyFunction):
             totalValue += itemsCopy[i].getValue()
 
     return (result, totalValue)
+
+
+def testGreedy(item, constraint, keyFunction):
+    taken, val = greedy(item, constraint, keyFunction)
+    print('Total value of itmes taken =', val)
+    for item in taken:
+        print('  ', item)
+
+
+def testGreedys(foods, maxUnits):
+
+    print('Use greedy by value to allcoate', maxUnits,
+          'calories')
+    testGreedy(foods, maxUnits, Food.getValue)
+    print('\nUse greedy by cost to allocate', maxUnits, 'calories')
+    testGreedy(foods, maxUnits,
+               lambda x: 1 / Food.getCost(x))
+    print('\nUse greedy by density to allocate', maxUnits,
+          'calories')
+    testGreedy(foods, maxUnits, Food.density)
+
+
+names = ['wine', 'beer', 'pizza', 'burger', 'fries', 'cola',
+         'apple', 'donuts', 'cake']
+values = [89, 90, 95, 100, 90, 79, 50, 10]
+calories = [123, 154, 258, 454, 365, 150, 95, 195]
+foods = buildMenu(names, values, calories)
+testGreedys(foods, 750)
