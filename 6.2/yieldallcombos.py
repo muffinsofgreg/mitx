@@ -1,7 +1,8 @@
 def powerset(items):
     """
     PowerSet is all possible combinations of N;
-    (O)**n"""
+    (O)**n
+    """
 
     N = len(items)
 
