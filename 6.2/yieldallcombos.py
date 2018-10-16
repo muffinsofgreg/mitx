@@ -1,7 +1,8 @@
-# generate all combinations of N items
-
-
 def powerset(items):
+    """
+    PowerSet is all possible combinations of N;
+    (O)**n"""
+
     N = len(items)
 
     # enumerate the n**N possible combinations
@@ -12,16 +13,6 @@ def powerset(items):
             if (i >> j) % 2 == 1:
                 combo.append(items[j])
         yield combo
-
-
-items = ['apple', 'bacon', 'tulip', 'box', 'jumbo', 'micro', 'chair', 'hat']
-#
-# test = powerset(items)
-#
-# for item in test:
-#     print(item)
-#
-#
 
 
 def yieldall(items):
@@ -40,4 +31,17 @@ def yieldall(items):
         yield (bag1, bag2)
 
 
-test = yieldall(items)
+if __name__ == "__main__":
+
+    items = ['apple', 'bacon', 'tulip', 'box', 'jumbo', 'micro',
+             'chair', 'hat']
+
+#    test = powerset(items)
+#
+#    for item in test:
+#        print(item)
+
+    test = yieldall(items)
+
+    for item in test:
+        print(item)
