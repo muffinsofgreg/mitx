@@ -2,5 +2,6 @@ venv
 .pyc
 .DS_Store
 .un
-.idea
+.idea/
+.swp
 __pycache__/
