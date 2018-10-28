@@ -1,7 +1,8 @@
 venv
-.pyc
-.DS_Store
-.un
-.idea/
-.swp
+*.pyc
+*.DS_Store
+*.un~
+*.py~
+*.idea/
+*.swp
 __pycache__/
