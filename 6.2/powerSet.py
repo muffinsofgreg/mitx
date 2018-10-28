@@ -18,4 +18,7 @@ def powerSet(items):
 
 items = ['apple', 'musk', 'rats', 'cordoroy', 'four', 'money']
 
-powerSet(items)
+yes = powerSet(items)
+
+for item in yes:
+    print(item)
