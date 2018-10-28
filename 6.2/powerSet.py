@@ -4,6 +4,7 @@
 def powerSet(items):
     N = len(items)
     # enumerate the 2**N possible combinations
+    num = 0
     for i in range(2**N):
         combo = []
         for j in range(N):
@@ -11,6 +12,8 @@ def powerSet(items):
             if (i >> j) % 2 == 1:
                 combo.append(items[j])
         yield combo
+        num += 1
+    print(num)
 
 
 items = ['apple', 'musk', 'rats', 'cordoroy', 'four', 'money']
