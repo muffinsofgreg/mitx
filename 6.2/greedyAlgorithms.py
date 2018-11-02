@@ -14,7 +14,14 @@ class Food(object):
         return self.getValue() / self.getCost()
 
     def __str__(self):
-        return self.name + ": <" + str(self.value) + ", " + str(self.calories) + ">"
+        return (
+            self.name
+            + ": <"
+            + str(self.value)
+            + ", "
+            + str(self.calories)
+            + ">"
+        )
 
 
 def buildMenu(name, values, calories):
@@ -64,7 +71,17 @@ def testGreedys(foods, maxUnits):
     testGreedy(foods, maxUnits, Food.density)
 
 
-names = ["wine", "beer", "pizza", "burger", "fries", "cola", "apple", "donuts", "cake"]
+names = [
+    "wine",
+    "beer",
+    "pizza",
+    "burger",
+    "fries",
+    "cola",
+    "apple",
+    "donuts",
+    "cake",
+]
 values = [89, 90, 95, 100, 90, 79, 50, 10]
 calories = [123, 154, 258, 454, 365, 150, 95, 195]
 foods = buildMenu(names, values, calories)

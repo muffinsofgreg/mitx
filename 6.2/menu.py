@@ -14,7 +14,14 @@ class Food:
         return self.getValue() / self.getCost()
 
     def __repr__(self):
-        return self.name + ": <" + str(self.value) + ", " + str(self.calories) + ">"
+        return (
+            self.name
+            + ": <"
+            + str(self.value)
+            + ", "
+            + str(self.calories)
+            + ">"
+        )
 
 
 # Should probably build a menu class, else menu dies with function
