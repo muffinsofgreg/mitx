@@ -5,7 +5,7 @@ def powerSet(items):
     N = len(items)
     # enumerate the 2**N possible combinations
     num = 0
-    for i in range(2**N):
+    for i in range(2 ** N):
         combo = []
         for j in range(N):
             # test bit jth of integer i
@@ -16,7 +16,7 @@ def powerSet(items):
     print(num)
 
 
-items = ['apple', 'musk', 'rats', 'cordoroy', 'four', 'money']
+items = ["apple", "musk", "rats", "cordoroy", "four", "money"]
 
 yes = powerSet(items)
 

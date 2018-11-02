@@ -10,7 +10,7 @@ def powerset(items):
             yield item
 
 
-items = ['bucket', 'driver', 'mouse', 'hatchet', 'gourd', 'bottle']
+items = ["bucket", "driver", "mouse", "hatchet", "gourd", "bottle"]
 
 new = powerset(items)
 

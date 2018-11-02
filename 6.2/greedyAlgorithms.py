@@ -1,5 +1,4 @@
 class Food(object):
-
     def __init__(self, n, v, w):
         self.name = n
         self.value = v
@@ -15,8 +14,7 @@ class Food(object):
         return self.getValue() / self.getCost()
 
     def __str__(self):
-        return self.name + ': <' + str(self.value)\
-            + ', ' + str(self.calories) + '>'
+        return self.name + ": <" + str(self.value) + ", " + str(self.calories) + ">"
 
 
 def buildMenu(name, values, calories):
@@ -51,26 +49,22 @@ def greedy(items, maxCost, keyFunction):
 
 def testGreedy(item, constraint, keyFunction):
     taken, val = greedy(item, constraint, keyFunction)
-    print('Total value of itmes taken =', val)
+    print("Total value of itmes taken =", val)
     for item in taken:
-        print('  ', item)
+        print("  ", item)
 
 
 def testGreedys(foods, maxUnits):
 
-    print('Use greedy by value to allcoate', maxUnits,
-          'calories')
+    print("Use greedy by value to allcoate", maxUnits, "calories")
     testGreedy(foods, maxUnits, Food.getValue)
-    print('\nUse greedy by cost to allocate', maxUnits, 'calories')
-    testGreedy(foods, maxUnits,
-               lambda x: 1 / Food.getCost(x))
-    print('\nUse greedy by density to allocate', maxUnits,
-          'calories')
+    print("\nUse greedy by cost to allocate", maxUnits, "calories")
+    testGreedy(foods, maxUnits, lambda x: 1 / Food.getCost(x))
+    print("\nUse greedy by density to allocate", maxUnits, "calories")
     testGreedy(foods, maxUnits, Food.density)
 
 
-names = ['wine', 'beer', 'pizza', 'burger', 'fries', 'cola',
-         'apple', 'donuts', 'cake']
+names = ["wine", "beer", "pizza", "burger", "fries", "cola", "apple", "donuts", "cake"]
 values = [89, 90, 95, 100, 90, 79, 50, 10]
 calories = [123, 154, 258, 454, 365, 150, 95, 195]
 foods = buildMenu(names, values, calories)
