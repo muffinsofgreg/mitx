@@ -2,12 +2,11 @@ import datetime
 
 
 class Person(object):
-
     def __init__(self, name):
         """Create a person called name"""
         self.name = name
         self.birthday = None
-        self.lastName = name.split(' ')[-1]
+        self.lastName = name.split(" ")[-1]
 
     def setBirthday(self, month, day, year):
         """set's self's birthday to birthDate"""
@@ -27,7 +26,7 @@ class Person(object):
         """returns True is self's name is lexicographically less than
         the other's name, and False otherwise"""
         if self.lastName == other.lastName:
-                return self.name < other.name
+            return self.name < other.name
         return self.lastName < other.lastName
 
     def __str__(self):
@@ -51,11 +50,10 @@ class MITPerson(Person):
         return self.idNum < other.idNum
 
     def speak(self, utterance):
-        return (self.name + ' says: ' + utterance)
+        return self.name + " says: " + utterance
 
 
 class UG(MITPerson):
-
     def __init__(self, name, classYear):
         MITPerson.__init__(self, name)
         self.year = classYear
@@ -64,7 +62,7 @@ class UG(MITPerson):
         return self.year
 
     def speak(self, utterance):
-        return MITPerson.speak(self, ' Dude, ' + utterance)
+        return MITPerson.speak(self, " Dude, " + utterance)
 
 
 class Grad(MITPerson):
@@ -72,14 +70,13 @@ class Grad(MITPerson):
 
 
 class Professor(MITPerson):
-
     def __init__(self, name, department):
         MITPerson.__init__(self, name)
         self.department = department
 
     def speak(self, utterance):
-        new = 'In course ' + self.department + ' we say '
+        new = "In course " + self.department + " we say "
         return MITPerson.speak(self, new + utterance)
 
     def lecture(self, topic):
-        return self.speak('it is obvious that ' + topic)
+        return self.speak("it is obvious that " + topic)
