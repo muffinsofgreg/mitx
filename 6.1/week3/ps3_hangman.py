@@ -7,9 +7,35 @@
 # but you will have to know how to use the functions
 # (so be sure to read the docstrings!)
 
+import os
+import time
 import random
 
 WORDLIST_FILENAME = "words.txt"
+
+
+def play_loop(game):
+
+    yes = ['Y', 'y', 'yes']
+    play_again = True
+
+    while play_again is True:
+        game()
+        if input("\nPlay Again? ") not in yes:
+            play_again = False
+
+
+def display_title():
+    os.system('clear')
+
+    print("\t***********************************")
+    print("\t**********  Hangman  **************")
+    print("\t***********************************")
+    print('-------------------------------------------------')
+    print('\n')
+    print('Welcome to the game, Hangman!')
+    print('I am thinking of a word that is ', len(secretWord), 'letters long.')
+    print('\n')
 
 
 def loadWords():
@@ -20,13 +46,17 @@ def loadWords():
     take a while to finish.
     """
     print("Loading word list from file...")
-    # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r')
-    # line: string
-    line = inFile.readline()
-    # wordlist: list of strings
-    wordlist = line.split()
+
+    with open(WORDLIST_FILENAME, 'r') as inFile:
+        time.sleep(1)
+        # line: string
+        line = inFile.readline()
+        # wordlist: list of strings
+        wordlist = line.split()
+
     print("  ", len(wordlist), "words loaded.")
+    time.sleep(1)
+
     return wordlist
 
 
@@ -115,32 +145,42 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    guessesLeft = 8
+    guessesLeft = 3
     lettersGuessed = []
 
-    print('Welcome to the game, Hangman!')
-    print('I am thinking of a word that is ', len(secretWord), 'letters long.')
+    def display_guess_status():
+        print(getGuessedWord(secretWord, lettersGuessed))
+        print('\n')
+        print('You have {} guesses left.'.format(guessesLeft))
+        print('Available Letters: {}'.format(
+              getAvailableLetters(lettersGuessed)))
+        print('\n')
 
     while guessesLeft > 0 and isWordGuessed(secretWord, lettersGuessed) is False:
 
-        print('-------------')
-        print('You have {} guesses left.'.format(guessesLeft))
-        print('Available Letters: {}'.format(getAvailableLetters(lettersGuessed)))
+        display_title()
+        display_guess_status()
+
         guess = str(input('Please guess a letter: ')).lower()
 
         if guess in lettersGuessed:
-            print("Oops! You've already guessed that Letter: {}".format(getGuessedWord(secretWord, lettersGuessed)))
+            print("Oops! You've already guessed that Letter!")
+            time.sleep(1.5)
 
         elif guess not in secretWord:
             lettersGuessed.append(guess)
             guessesLeft -= 1
-            print('Oops! That letter is not in my word: {}'.format(getGuessedWord(secretWord, lettersGuessed)))
+            print("Oops! That letter is not in my word!")
+            time.sleep(1.5)
 
         else:
             lettersGuessed.append(guess)
-            print('Good guess: {}'.format(getGuessedWord(secretWord, lettersGuessed)))
+            print("Good guess!")
+            time.sleep(1.5)
 
     if isWordGuessed(secretWord, lettersGuessed) is True:
+        display_title()
+        display_guess_status()
         print('----------')
         print('Congratulations, you won!')
 
@@ -153,5 +193,8 @@ def hangman(secretWord):
 # secretWord while you're testing)
 
 
-secretWord = chooseWord(wordlist).lower()
-hangman(secretWord)
+if __name__ == "__main__":
+    # secretWord = chooseWord(wordlist).lower()
+    secretWord = 'bongle'
+    game = hangman(secretWord)
+    play_loop(game)
