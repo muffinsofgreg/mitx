@@ -18,56 +18,47 @@ int digit_count(long long number);
 int digits_from_left(long long number, int num_digits);
 long long exponent(long long num, int raise);
 
-int main(void)
-{
+int main(void) {
 
     long long number = get_long_long("Number: ");
 
-    if (good_length(number) == 0 || luhn(number) == 0)
-    {
+    if (good_length(number) == 0 || luhn(number) == 0) {
         printf("INVALID\n");
-    }
-    else
-    {
+        }
+    else {
         printf("%s\n", cc_comp(number));
+        }
     }
-
-}
 
 //Luhns Algorithm Check function
-int luhn(long long cc_num)
-{
+int luhn(long long cc_num) {
     //Declare variables to be used
     int result = 0;
 
     //Step 1: Multiple every other digit by 2, starting with 2nd to last digit
     //Step 2: Add those products digits together
-    for (int i = 2; i <= digit_count(cc_num); i += 2)
-    {
+    for (int i = 2; i <= digit_count(cc_num); i += 2) {
         int each_two = digit_place(cc_num, i) * 2;
-        for (int j = 1; j <= digit_count(each_two); j++)
-        {
+
+        for (int j = 1; j <= digit_count(each_two); j++) {
             result += digit_place(each_two, j);
+            }
         }
-    }
 
     //Step 3: Add that sum to the sum of the digits not multiplied by 2
-    for (int i = 1; i <= digit_count(cc_num); i += 2)
-    {
+    for (int i = 1; i <= digit_count(cc_num); i += 2) {
         result += digit_place(cc_num, i);
-    }
+        }
 
     //Step 4: If that total's last digit is 0 (%10 == 0) then it is valid
-    if (result % 10 == 0)
-    {
+    if (result % 10 == 0) {
         return 1;
-    }
-    else
-    {
+        }
+    else {
         return 0;
-    }
+        }
 
-}
+    }
 
 //Quick check if number passes the standard card number length
 int good_length(long long number)
