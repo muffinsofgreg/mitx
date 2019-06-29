@@ -1,5 +1,7 @@
 # Hangman game
-#
+# "Helper Code" from mitX 2016 6.00.1x
+# greg griffin
+# added additions of my own
 
 # -----------------------------------
 # Helper code
@@ -20,7 +22,7 @@ def play_loop(game):
     play_again = True
 
     while play_again is True:
-        game()
+        game
         if input("\nPlay Again? ") not in yes:
             play_again = False
 
